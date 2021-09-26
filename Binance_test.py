@@ -4,6 +4,8 @@ import pprint
 import time
 import datetime
 
+print('CCXT Version:', ccxt.__version__)
+
 # binance = ccxt.binance()
 # btc_ohlcv = binance.fetch_ohlcv("BTC/USDT")
 #type(btc_ohlcv)
@@ -56,11 +58,12 @@ resp = binance.fapiPrivate_post_leverage({
     'leverage': leverage
 })
 
-order = binance.create_market_buy_order(
+order = binance.create_limit_buy_order(
     symbol=symbol,
     amount=0.1,
+    price=29.338
 )
-pprint.pprint(order)
+#pprint.pprint(order)
 # balance = binance.fetch_balance(params={"type": "future"})
 # btc = binance.fetch_ticker("BTC/USDT")
 # btc_ohlcv = binance.fetch_ohlcv(symbol='BTC/USDT', timeframe='1d', since=None, limit=10)
