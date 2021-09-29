@@ -32,13 +32,14 @@ print('CCXT Version:', ccxt.__version__)
 #    time.sleep(1)
 
 
-# 파일로부터 apiKey, Secret 읽기
+
+
+
 with open("api.txt") as f:
     lines = f.readlines()
     api_key = lines[0].strip()
-    secret = lines[1].strip()
+    secret  = lines[1].strip()
 
-# binance 객체 생성
 binance = ccxt.binance(config={
     'apiKey': api_key,
     'secret': secret,
@@ -47,22 +48,43 @@ binance = ccxt.binance(config={
         'defaultType': 'future'
     }
 })
-# markets = binance.load_markets()
-markets = binance.load_markets()
-symbol = "DOT/USDT"
-market = binance.market(symbol)
-leverage = 2
 
-resp = binance.fapiPrivate_post_leverage({
-    'symbol': market['id'],
-    'leverage': leverage
-})
-
-order = binance.create_limit_buy_order(
-    symbol=symbol,
-    amount=0.1,
-    price=29.338
+order = binance.create_market_buy_order(
+    symbol="DOT/USDT",
+    amount=0.4
 )
+
+pprint.pprint(order)
+
+
+# params = {
+#    'test': True,  # test if it's valid, but don't actually place it
+#}
+
+# markets = binance.load_markets()
+# markets = binance.load_markets()
+# symbol = "DOT/USDT"
+# market = binance.market(symbol)
+# leverage = 2
+
+# resp = binance.fapiPrivate_post_leverage({
+#    'symbol': market['id'],
+#    'leverage': leverage
+#})
+
+# symbol = symbol,
+# type = 'limit',
+# side = 'sell',
+# amount = 0.1,
+# price = 29.338
+
+# exchange.options = {'defaultType': 'future', 'adjustForTimeDifference': True,'defaultTimeInForce':False}
+# binance.options['defaultType'] = 'future'
+# binance.options['adjustForTimeDifference'] = False
+# binance.options['defaultTimeInForce'] = 'GTC'
+# binance.set_sandbox_mode(enabled=True)
+# binance.set_sandbox_mode(enabled=True)
+# order = binance.create_order(symbol, type, side, amount, price, params)
 #pprint.pprint(order)
 # balance = binance.fetch_balance(params={"type": "future"})
 # btc = binance.fetch_ticker("BTC/USDT")
